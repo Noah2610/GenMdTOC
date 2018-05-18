@@ -1,1 +1,1 @@
-nmap <leader>r :!./GenMdToC.rb ./README.md<CR>
+nmap <leader>r :!./gen-table-of-contents.rb ./README.md<CR>

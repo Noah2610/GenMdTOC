@@ -1,4 +1,4 @@
-module MDTableOfContents
+module TableOfContentsGenerator
 	TOC_TITLE = '## Table of Contents _(Generated)_'
 	PADDING   = '  '
 	PREFIX    = '- '
@@ -92,11 +92,11 @@ module MDTableOfContents
 
 		def get_header_lines
 			return @content.select do |line|
-				next line.match? /\A\s*#+.+$/
+				next line.match? /\A {0,3}#+.+$/
 			end
 		end
 	end
 end
 
-TOC = MDTableOfContents::Generator.new [ARGUMENTS[:keywords][:input_file]].flatten.first
+TOC = TableOfContentsGenerator::Generator.new [ARGUMENTS[:keywords][:input_file]].flatten.first
 puts TOC.gen_toc

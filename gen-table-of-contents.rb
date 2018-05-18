@@ -1,5 +1,8 @@
 #!/bin/env ruby
 
+require 'bundler'
+Bundler.setup
+
 require 'argument_parser'
 
 require 'awesome_print'
@@ -11,4 +14,4 @@ DIR = {
 }
 
 require File.join DIR[:src], 'handle_arguments'
-require File.join DIR[:src], 'main'
+require File.join DIR[:src], 'TableOfContentsGenerator'
