@@ -115,7 +115,7 @@ module TableOfContentsGenerator
 			lines             = get_file_lines
 			line_index        = get_line_index_for_toc_from_lines lines
 			lines[line_index] = toc + "\n"  if (!!line_index)
-			lines.insert 0, (toc + "\n")    if (!line_index)
+			lines.insert 0, (toc + "\n\n")  if (!line_index)
 			return lines.join('')
 		end
 
@@ -125,7 +125,7 @@ module TableOfContentsGenerator
 
 		def get_line_index_for_toc_from_lines lines
 			line_index   = nil
-			regex        = (ARGUMENTS[:options][:full] || "/^#{TOC_TITLE}$/").to_regex
+			regex        = (ARGUMENTS[:options][:full] || "/^#{Regexp.quote TOC_TITLE}$/").to_regex
 			line_index ||= lines.map.with_index do |line, index|
 				next index  if (line.match? regex)
 				next nil

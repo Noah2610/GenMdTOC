@@ -1,9 +1,15 @@
-# Generate Markdown Table Of Contents
+# Markdown Table of Contents Generator
+A simple Markdown Table of Contents Generator script.
+
+## Table of Contents _(Generated)_
+- [Markdown Table of Contents Generator](#markdown-table-of-contents-generator)
+  - [Table of Contents _(Generated)_](#table-of-contents-generated)
+  - [Usage](#usage)
 
 ## Usage
 ```
 USAGE:
-  gen-table-of-contents [OPTIONS...] INPUT-FILE
+  gentoc [OPTIONS...] [INPUT-FILE]
 
   INPUT-FILE
     Markdown file to generate Table of Contents from.
@@ -35,4 +41,16 @@ USAGE:
       to not add a title to the table.
       Default value:
         --title '## Table of Contents _(Generated)_'
+  EXAMPLES
+    Generates Table of Contents from ./README.md and writes to ./OUT.md
+      $ ./gentoc -o OUT.md
+    Generates Table of Contents and outputs README.md file content with the
+    Table of Contents inserted at the first line that matches the regex for -f
+      $ ./gentoc -f '/^\s*Table of Contents goes here!\s*$/i'
+    Does the same as above, except it prepends Table of Contents to
+    the start of the file
+      $ ./gentoc -f
+    Generate Table of Contents from ./README.md, put it in the proper position,
+    give proper title, and overwrite ./README.md with the resulting file
+      $ ./gentoc ./README.md -f '/^## Table of Contents _\(Generated\)_$/' -t '## Generated Table of Contents!' -O
 ```
