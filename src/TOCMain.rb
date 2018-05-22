@@ -12,8 +12,9 @@ module TableOfContentsGenerator
 		end
 
 		def get_input_file
-			input_file = './README.md'
-			input_file = [ARGUMENTS[:keywords][:input_file]].flatten.first  if (ARGUMENTS[:keywords].key? :input_file)
+			input_file = Pathname.new './README.md'
+			input_file = Pathname.new [ARGUMENTS[:keywords][:input_file]].flatten.first  if (ARGUMENTS[:keywords].key? :input_file)
+			input_file = DIR[:entry].join input_file  unless (input_file.absolute?)
 			validate_input_file input_file
 			return input_file
 		end
@@ -21,15 +22,9 @@ module TableOfContentsGenerator
 		def validate_input_file input_file
 			abort([
 				"#{__FILE__}:",
-				"Error: A Markdown file must be given.",
-				"       See --help for more information.",
-				"       Aborting."
-			].join("\n"))  unless (!!input_file)
-			abort([
-				"#{__FILE__}:",
 				"Error: File #{input_file} doesn't exist or is a directory.",
 				"       Aborting."
-			].join("\n"))  unless (File.file? input_file)
+			].join("\n"))  unless (input_file.file?)
 		end
 
 		def get_generator

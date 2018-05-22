@@ -1,5 +1,11 @@
 #!/bin/env ruby
 
+require 'pathname'
+
+ENTRY_DIR = Pathname.pwd
+ROOT      = Pathname.new File.expand_path(File.dirname(File.realpath(__FILE__)))
+Dir.chdir ROOT
+
 require 'bundler'
 Bundler.setup
 
@@ -8,9 +14,8 @@ require 'argument_parser'
 require 'awesome_print'
 require 'byebug'
 
-
-ROOT = Bundler.root
 DIR = {
+	entry:  ENTRY_DIR,
 	src:    ROOT.join('src'),
 	readme: ROOT.join('README.md')
 }
