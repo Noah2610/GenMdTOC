@@ -36,7 +36,7 @@ module TableOfContentsGenerator
 			#   3) Convert all SPACES (not all whitespaces) to DASHES ('-')
 			#   4) Remove all non-word characters, including UNDERSCORES, except for DASHES
 			title = get_header_title.downcase
-			id    = title.strip.gsub(' ', ?-).gsub(/[^\w-]|_/, '')
+			id    = title.strip.gsub(' ', ?-).gsub(/[^\w\-äöü]|_/, '')
 			return "##{id}"
 		end
 	end
