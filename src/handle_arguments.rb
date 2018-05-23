@@ -1,4 +1,4 @@
-# Very messy method...
+# TODO: Clean-up this messy method
 def get_help_text_from_readme
 	file          = DIR[:readme].to_s
 	lines         = File.readlines file
@@ -31,18 +31,20 @@ HELP_TEXT = get_help_text_from_readme
 
 VALID_ARGUMENTS = {
 	single: {
-		help:        [[?h],                  false],
-		output_file: [[?o],                  true],
-		overwrite:   [[?O],                  false],
-		full:        [[?f],                  true],
-		title:       [[?t],                  true]
+		help:            [[?h],                  false],
+		output_file:     [[?o],                  true],
+		overwrite:       [[?O],                  false],
+		full:            [[?f],                  true],
+		title:           [[?t],                  true],
+		min_header_type: [[?n],                  true]
 	},
 	double: {
-		help:        [['help'],              false],
-		output_file: [['output','out','of'], true],
-		overwrite:   [['overwrite'],         false],
-		full:        [['full'],              true],
-		title:       [['title'],             true]
+		help:            [['help'],              false],
+		output_file:     [['output','out','of'], true],
+		overwrite:       [['overwrite'],         false],
+		full:            [['full'],              true],
+		title:           [['title'],             true],
+		min_header_type: [['min-header'],        true]
 	},
 	keywords: {
 		input_file:  [:INPUT]

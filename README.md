@@ -1,11 +1,10 @@
 # GenTOC
 
 ## Table of Contents _(Generated)_
-- [GenTOC](#gentoc)
-  - [Table of Contents _(Generated)_](#table-of-contents-generated)
-  - [Description](#description)
-  - [Usage](#usage)
-  - [TODO](#todo)
+- [Table of Contents _(Generated)_](#table-of-contents-generated)
+- [Description](#description)
+- [Usage](#usage)
+- [TODO](#todo)
 
 ## Description
 A simple __Markdown Table of Contents Generator__ script.
@@ -13,9 +12,9 @@ A simple __Markdown Table of Contents Generator__ script.
 ## Usage
 ```
 USAGE:
-  gentoc [OPTIONS...] [INPUT-FILE]
+  gentoc [OPTIONS...] [INPUT_FILE]
 
-  INPUT-FILE
+  INPUT_FILE
     Markdown file to generate Table of Contents from.
     If ommited, it is set to './README.md'.
     By default, it will generate the Table of Contents
@@ -25,13 +24,13 @@ USAGE:
     --help, -h
       Print this help and exit.
 
-    --output, --out, --of, -o OUTPUT-FILE
-      Write output to file OUTPUT-FILE.
+    --output, --out, --of, -o OUTPUT_FILE
+      Write output to file OUTPUT_FILE.
       Without this option, it will output to stdout.
 
     --overwrite, -O
-      Overwrite file INPUT-FILE with output.
-      Basically use INPUT-FILE as OUTPUT-FILE.
+      Overwrite file INPUT_FILE with output.
+      Basically use INPUT_FILE as OUTPUT_FILE.
       Useless if --output is given.
 
     --full, -f [REGEX]
@@ -50,6 +49,19 @@ USAGE:
       to not add a title to the table.
       Default value:
         --title '## Table of Contents _(Generated)_'
+
+    --min-header, -n [HEADER_SIZE]
+      Only include headers with size HEADER_SIZE or smaller.
+      HEADER_SIZE is an integer, representing the size of the header.
+        1 -> #      (largest)
+        2 -> ##
+        ...
+        6 -> ###### (smallest)
+      The default value is 1.
+      Although 6 is the smallest header size for markdown,
+      there is nothing stopping you from using a higher number,
+      and it will act as expected.
+
 
   EXAMPLES
     Generates Table of Contents from ./README.md and writes to ./OUT.md.
@@ -71,7 +83,12 @@ USAGE:
     Overwrites ./README.md with inserted Table of Contents either replacing the
     previous Table of Contents header, or prepending to the top of the file.
       $ ./gentoc -Of
+
+    Same as above, except it only includes headers of size 2 (##) or smaller.
+      $ ./gentoc -Ofn 2
 ```
+
+---
 
 ## TODO
 - An option for setting the minimum header size to process. So the generator  
@@ -84,3 +101,4 @@ then _(optionally)_ skip it while generating.
 So you wouldn't wind up with either a TOC entry to the TOC, or  
 a TOC entry to a non-existent header, as it has been replaced by the TOC.
 - Only process headers after line matching a regex
+- Clean-up `get_help_text_from_readme` method in `src/handle_arguments.rb`
