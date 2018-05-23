@@ -1,7 +1,6 @@
 # GenTOC
 
 ## Table of Contents _(Generated)_
-- [Table of Contents _(Generated)_](#table-of-contents-generated)
 - [Description](#description)
 - [Usage](#usage)
 - [TODO](#todo)
@@ -62,6 +61,9 @@ USAGE:
       there is nothing stopping you from using a higher number,
       and it will act as expected.
 
+    --include-title-header
+      By default, the script will not generate a Table of Contents entry for
+      a header matching the --title value, unless this option is given.
 
   EXAMPLES
     Generates Table of Contents from ./README.md and writes to ./OUT.md.

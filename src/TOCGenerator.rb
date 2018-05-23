@@ -1,5 +1,5 @@
 module TableOfContentsGenerator
-	TOC_TITLE           = ARGUMENTS[:options][:title] || '## Table of Contents _(Generated)_'
+	TOC_TITLE           = (ARGUMENTS[:options][:title] || '## Table of Contents _(Generated)_').strip
 	MIN_HEADER_TYPE     = [ARGUMENTS[:options][:min_header_type].to_i, 1].max
 	PADDING             = '  '
 	PREFIX              = '- '
@@ -71,8 +71,32 @@ module TableOfContentsGenerator
 
 		def filter_headers
 			@headers.reject! do |header|
-				next header.get_type < MIN_HEADER_TYPE
+				next should_reject_header? header
 			end
+		end
+
+		def should_reject_header? header
+			return [
+				is_header_type_too_small?( header ),
+				is_header_title_invalid?(  header )
+			] .include? true
+		end
+
+		def is_header_type_too_small? header
+			return header.get_type < MIN_HEADER_TYPE
+		end
+
+		def is_header_title_invalid? header
+			return false  if (include_title_header?)
+			return header.get_title == get_toc_title
+		end
+
+		def include_title_header?
+			return ARGUMENTS[:options].key? :include_title_header
+		end
+
+		def get_toc_title
+			return TOC_TITLE.match(/\A {0,3}#*\s*(.+?)\s*\z/)[1] || ''
 		end
 
 		def adjust_header_indents
