@@ -14,14 +14,15 @@ require 'argument_parser'
 DIR = {
 	entry:  ENTRY_DIR,
 	src:    ROOT.join('src'),
+	toc:    ROOT.join('src/TableOfContentsGenerator'),
 	readme: ROOT.join('README.md')
 }
 
 require DIR[:src].join 'extensions'
 require DIR[:src].join 'handle_arguments'
-require DIR[:src].join 'TOCGenerator'
-require DIR[:src].join 'TOCHeader'
-require DIR[:src].join 'TOCMain'
+require DIR[:toc].join 'Header'
+require DIR[:toc].join 'Generator'
+require DIR[:toc].join 'Main'
 
 TOC_MAIN = TableOfContentsGenerator::Main.new
 TOC_MAIN.start
