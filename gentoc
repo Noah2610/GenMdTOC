@@ -11,9 +11,6 @@ Bundler.setup
 
 require 'argument_parser'
 
-require 'awesome_print'
-require 'byebug'
-
 DIR = {
 	entry:  ENTRY_DIR,
 	src:    ROOT.join('src'),

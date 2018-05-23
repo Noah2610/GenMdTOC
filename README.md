@@ -1,17 +1,20 @@
 # GenTOC
 
+## Description
+A simple __Markdown Table of Contents Generator__ script.
+
 ## Table of Contents _(Generated)_
 - [Description](#description)
 - [Usage](#usage)
-- [TODO](#todo)
-
-## Description
-A simple __Markdown Table of Contents Generator__ script.
+- [Installation](#installation)
+- [Development](#development)
+  - [Dependencies](#dependencies)
+  - [TODO](#todo)
 
 ## Usage
 ```
 USAGE:
-  gentoc [OPTIONS...] [INPUT_FILE]
+  ./gentoc [OPTIONS...] [INPUT_FILE]
 
   INPUT_FILE
     Markdown file to generate Table of Contents from.
@@ -47,7 +50,7 @@ USAGE:
       Title for Table of Contents. Ommit TITLE or set to empty string
       to not add a title to the table.
       Default value:
-        --title '## Table of Contents _(Generated)_'
+        --title '## Table of Contents _\(Generated\)_'
 
     --min-header, -n [HEADER_SIZE]
       Only include headers with size HEADER_SIZE or smaller.
@@ -61,7 +64,7 @@ USAGE:
       there is nothing stopping you from using a higher number,
       and it will act as expected.
 
-    --include-title-header
+    --include-title
       By default, the script will not generate a Table of Contents entry for
       a header matching the --title value, unless this option is given.
 
@@ -86,21 +89,51 @@ USAGE:
     previous Table of Contents header, or prepending to the top of the file.
       $ ./gentoc -Of
 
-    Same as above, except it only includes headers of size 2 (##) or smaller.
+    Same as above, except it only includes headers of size 2 (##) or smaller (###...).
       $ ./gentoc -Ofn 2
 ```
 
+## Installation
+Clone the repository with
+```
+$ git clone https://github.com/Noah2610/GenTOC.git
+```
+Then install the dependencies with
+```
+$ cd ./GenTOC; bundle install
+```
+And that should be it!  
+Now you'll be able to execute `./gentoc` to run the script.  
+Until I turn this project into a proper gem with an executable attached,  
+I recommend you _sym-link_ `./gentoc` to some path accessible from your  
+shell; check your `$PATH` environment variable.
+
 ---
 
-## TODO
-- An option for setting the minimum header size to process. So the generator  
-could ignore any headers below `##`. Use case being, it would ignore the first  
-header, which is _(usually)_ the program's title and should not be in the TOC.
+## Development
+This script is written in __Ruby__ version __2.5__  
+It will probably work with version 2.4, but probably not with 2.3 or lower.
+
+### Dependencies
+You will need to have __Ruby__ version __2.4__ or higher and  
+__ruby-bundler__ installed.
+
+__GenTOC__ uses my _(old, due for a re-write)_ [argument parser gem][argument-parser-gem-page]  
+to parse command-line arguments.
+
+### TODO
 - Specifying the indent level _(in spaces)_ to be used.  
 Currently hard-coded: `'  '` _(two spaces)_
-- If a header has the title of the given regex _(for `--full`)_,  
-then _(optionally)_ skip it while generating.  
-So you wouldn't wind up with either a TOC entry to the TOC, or  
-a TOC entry to a non-existent header, as it has been replaced by the TOC.
+- Specifying the prefix for TOC entries.  
+Currently hard-coded: `'- '` _(markdown list item)_
+- Fix `--include-title`; it doesn't work 100% as specified:  
+the option should only include the TOC entry to the new TOC title, but if  
+`--title` and `--full` values differ, and `--include-title` is given,  
+it will _only_ generate the TOC entry for the replaced `--full` matched header,  
+which has no use. It should generate a link to the _new_ `--title` header.
 - Only process headers after line matching a regex
 - Clean-up `get_help_text_from_readme` method in `src/handle_arguments.rb`
+- When matching TOC header title in existing markdown file, instead of just  
+replacing that line, replace the following TOC with new TOC.
+
+[argument-parser-gem-page]: https://github.com/Noah2610/ArgumentParser

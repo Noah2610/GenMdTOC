@@ -87,16 +87,18 @@ module TableOfContentsGenerator
 		end
 
 		def is_header_title_invalid? header
-			return false  if (include_title_header?)
+			full_regex = (ARGUMENTS[:options][:full] || "/^#{Regexp.quote TOC_TITLE}$/").to_regex
+			return false  if (include_title_entry?)
+			return true   if (header.get_original_line.match?(full_regex))
 			return header.get_title == get_toc_title
 		end
 
-		def include_title_header?
-			return ARGUMENTS[:options].key? :include_title_header
+		def include_title_entry?
+			return ARGUMENTS[:options].key? :include_title_entry
 		end
 
 		def get_toc_title
-			return TOC_TITLE.match(/\A {0,3}#*\s*(.+?)\s*\z/)[1] || ''
+			return TOC_TITLE.match(/\A {0,3}#*\s+(.+?)\s*\z/)[1] || ''
 		end
 
 		def adjust_header_indents

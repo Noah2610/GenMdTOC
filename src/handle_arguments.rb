@@ -31,21 +31,21 @@ HELP_TEXT = get_help_text_from_readme
 
 VALID_ARGUMENTS = {
 	single: {
-		help:                 [[?h],                     false],
-		output_file:          [[?o],                     true],
-		overwrite:            [[?O],                     false],
-		full:                 [[?f],                     true],
-		title:                [[?t],                     true],
-		min_header_type:      [[?n],                     true]
+		help:                [[?h],                  false],
+		output_file:         [[?o],                  true],
+		overwrite:           [[?O],                  false],
+		full:                [[?f],                  true],
+		title:               [[?t],                  true],
+		min_header_type:     [[?n],                  true]
 	},
 	double: {
-		help:                 [['help'],                 false],
-		output_file:          [['output','out','of'],    true],
-		overwrite:            [['overwrite'],            false],
-		full:                 [['full'],                 true],
-		title:                [['title'],                true],
-		min_header_type:      [['min-header'],           true],
-		include_title_header: [['include-title-header'], false]
+		help:                [['help'],              false],
+		output_file:         [['output','out','of'], true],
+		overwrite:           [['overwrite'],         false],
+		full:                [['full'],              true],
+		title:               [['title'],             true],
+		min_header_type:     [['min-header'],        true],
+		include_title_entry: [['include-title'],     false]
 	},
 	keywords: {
 		input_file:  [:INPUT]

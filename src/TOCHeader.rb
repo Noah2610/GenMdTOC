@@ -11,6 +11,10 @@ module TableOfContentsGenerator
 			return "#{padding}#{prefix}[#{@title}](#{@id})"
 		end
 
+		def get_original_line
+			return @original_line
+		end
+
 		def get_title
 			return @title
 		end
