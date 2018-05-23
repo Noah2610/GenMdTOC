@@ -1,7 +1,8 @@
 module TableOfContentsGenerator
-	TOC_TITLE = ARGUMENTS[:options][:title] || '## Table of Contents _(Generated)_'
-	PADDING   = '  '
-	PREFIX    = '- '
+	TOC_TITLE       = ARGUMENTS[:options][:title] || '## Table of Contents _(Generated)_'
+	PADDING         = '  '
+	PREFIX          = '- '
+	MIN_HEADER_TYPE = 1
 	class Generator
 		def initialize input_file
 			@input_file = input_file
@@ -10,7 +11,8 @@ module TableOfContentsGenerator
 		end
 
 		def generate_table_of_contents
-			title       = "#{TOC_TITLE}\n"
+			title = "#{TOC_TITLE}\n"
+			adjust_headers
 			toc_content = @headers.map do |header|
 				next header.get_line
 			end .join("\n")
@@ -57,6 +59,19 @@ module TableOfContentsGenerator
 			return @content.select do |line|
 				in_block = !in_block  if (line.match? /\A *```.*$/)
 				next !in_block && line.match?(/\A {0,3}#+.+$/)
+			end
+		end
+
+		def adjust_headers
+			header_types    = @headers.map { |header| next header.get_type }
+			min_header_type = header_types.min
+			decrease_header_types_by min_header_type - MIN_HEADER_TYPE
+		end
+
+		def decrease_header_types_by amount
+			return  if (amount == 0)
+			@headers.each do |header|
+				header.decrease_type_by amount
 			end
 		end
 	end

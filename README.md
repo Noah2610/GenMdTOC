@@ -83,3 +83,4 @@ Currently hard-coded: `'  '` _(two spaces)_
 then _(optionally)_ skip it while generating.  
 So you wouldn't wind up with either a TOC entry to the TOC, or  
 a TOC entry to a non-existent header, as it has been replaced by the TOC.
+- Only process headers after line matching a regex

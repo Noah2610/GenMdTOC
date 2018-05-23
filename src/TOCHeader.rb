@@ -6,9 +6,17 @@ module TableOfContentsGenerator
 		end
 
 		def get_line
-			padding = PADDING * [(@type - 1), 0].max
+			padding = get_padding
 			prefix  = PREFIX
 			return "#{padding}#{prefix}[#{@title}](#{@id})"
+		end
+
+		def get_type
+			return @type
+		end
+
+		def decrease_type_by amount
+			@type -= amount
 		end
 
 		private
@@ -38,6 +46,11 @@ module TableOfContentsGenerator
 			title = get_header_title.downcase
 			id    = title.strip.gsub(' ', ?-).gsub(/[^\w\-äöü]|_/, '')
 			return "##{id}"
+		end
+
+		def get_padding
+			padding_mult = [(@type - 1), 0].max
+			return PADDING * padding_mult
 		end
 	end
 end
