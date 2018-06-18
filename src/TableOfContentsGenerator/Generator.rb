@@ -12,7 +12,8 @@ module TableOfContentsGenerator
 		end
 
 		def generate_table_of_contents
-			title = "#{TOC_TITLE}\n"
+			title = "#{TOC_TITLE}"
+			title += ?\n  unless (title.empty?)
 			adjust_headers
 			toc_content = @headers.map do |header|
 				next header.get_line
@@ -98,7 +99,8 @@ module TableOfContentsGenerator
 		end
 
 		def get_toc_title
-			return TOC_TITLE.match(/\A {0,3}#*\s+(.+?)\s*\z/)[1] || ''
+			match = TOC_TITLE.match(/\A {0,3}#*\s*(.+?)\s*\z/)
+			return !!match ? match[1] : ''
 		end
 
 		def adjust_header_indents
