@@ -50,9 +50,9 @@ module TableOfContentsGenerator
 			#   1) Get lowercase header text, without HASHES (get_header_title)
 			#   2) Strip string - Remove trailing whitespaces (at beginning and end of line)
 			#   3) Convert all SPACES (not all whitespaces) to DASHES ('-')
-			#   4) Remove all non-word characters, including UNDERSCORES, except for DASHES
+			#   4) Remove all non-word characters, except for DASHES
 			title = get_header_title.downcase
-			id    = title.strip.gsub(' ', ?-).gsub(/[^\w\-äöü]|_/, '')
+			id    = title.strip.gsub(' ', ?-).gsub(/[^\w\-äöü]/, '')
 			return "##{id}"
 		end
 
